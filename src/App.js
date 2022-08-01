@@ -93,18 +93,18 @@ export default function App() {
 
   const [minWidthPx, setMinWidthPx] = useState(340);
   const [maxWidthPx, setMaxWidthPx] = useState(992);
-  const [minFontSize, setMinFontSize] = useState(1);
-  const [maxFontSize, setMaxFontSize] = useState(3.5);
+  const [minReqWidth, setMinReqWidth] = useState(100);
+  const [maxReqWidth, setMaxReqWidth] = useState(1200);
 
   const minWidth = minWidthPx / pixelsPerRem;
   const maxWidth = maxWidthPx / pixelsPerRem;
 
-  const slope = (maxFontSize - minFontSize) / (maxWidth - minWidth);
-  const yAxisIntersection = -minWidth * slope + minFontSize;
+  const slope = (maxReqWidth - minReqWidth) / (maxWidth - minWidth);
+  const yAxisIntersection = -minWidth * slope + minReqWidth;
 
-  const clampFunc = `font-size: clamp(${minFontSize}rem, calc(${yAxisIntersection.toFixed(
+  const clampFunc = `width: clamp(${minReqWidth}px, calc(${yAxisIntersection.toFixed(
     4
-  )}rem + ${(slope * 100).toFixed(4)}vw), ${maxFontSize}rem);`;
+  )}rem + ${(slope * 100).toFixed(4)}vw), ${maxReqWidth}px);`;
 
   return (
     <AppDiv>
@@ -112,8 +112,8 @@ export default function App() {
         <LabelGroup>
           <Label htmlFor="minWidthPx">Minimum viewport width =</Label>
           <Label htmlFor="maxWidthPx">Maximum viewport width =</Label>
-          <Label htmlFor="minFontSize">Minimum font size =</Label>
-          <Label htmlFor="maxFontSize">Maximum font size =</Label>
+          <Label htmlFor="minReqWidth">Minimum required width =</Label>
+          <Label htmlFor="maxReqWidth">Maximum required width =</Label>
           <Label htmlFor="pixelsPerRem">1 rem =</Label>
         </LabelGroup>
 
@@ -138,20 +138,20 @@ export default function App() {
 
           <InputAndUnit>
             <Input
-              id="minFontSize"
-              value={minFontSize}
-              onChange={(e) => setMinFontSize(Number(e.target.value))}
+              id="minReqWidth"
+              value={minReqWidth}
+              onChange={(e) => setMinReqWidth(Number(e.target.value))}
             />
-            <Unit>rem</Unit>
+            <Unit>px</Unit>
           </InputAndUnit>
 
           <InputAndUnit>
             <Input
               id="maxFontSize"
-              value={maxFontSize}
-              onChange={(e) => setMaxFontSize(Number(e.target.value))}
+              value={maxReqWidth}
+              onChange={(e) => setMaxReqWidth(Number(e.target.value))}
             />
-            <Unit>rem</Unit>
+            <Unit>px</Unit>
           </InputAndUnit>
 
           <InputAndUnit>
